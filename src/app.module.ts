@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import dataSourceOptions from './ormdatasource';
 import { AuthMiddleware } from './middlewares/auth.middleware';
+import { ArticleModule } from './article/article.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { AuthMiddleware } from './middlewares/auth.middleware';
     TypeOrmModule.forRoot(dataSourceOptions),
     TagModule,
     UserModule,
+    ArticleModule,
   ],
   controllers: [AppController],
   providers: [AppService],

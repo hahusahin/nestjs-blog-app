@@ -5,7 +5,7 @@ import {
   NestMiddleware,
 } from '@nestjs/common';
 import { NextFunction, Response } from 'express';
-import { ExpressRequest, UserJWTPayload } from '../user/types';
+import { ExpressRequest, UserJWTPayload } from '../user/user.types';
 import { UserService } from '../user/user.service';
 import { verify } from 'jsonwebtoken';
 

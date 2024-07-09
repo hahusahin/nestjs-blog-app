@@ -1,10 +1,10 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { LoginDto, RegisterDto, UpdateDto } from './dto';
+import { LoginDto, RegisterDto, UpdateDto } from './user.dto';
 import { UserEntity } from './user.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { sign } from 'jsonwebtoken';
-import { compare } from 'bcrypt';
+import { compare, hash } from 'bcrypt';
 
 @Injectable()
 export class UserService {
@@ -56,6 +56,10 @@ export class UserService {
     const user = await this.findUserById(userId);
 
     if (!user) throw new HttpException('User Not Found', HttpStatus.NOT_FOUND);
+
+    if (updateDto.password) {
+      user.password = updateDto.password;
+    }
 
     Object.assign(user, updateDto);
     return await this.userRepository.save(user);

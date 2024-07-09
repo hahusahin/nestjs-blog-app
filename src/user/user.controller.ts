@@ -10,8 +10,8 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { LoginDto, RegisterDto, UpdateDto } from './dto';
-import { ExpressRequest, UserResponse } from './types';
+import { LoginDto, RegisterDto, UpdateDto } from './user.dto';
+import { ExpressRequest, UserResponse } from './user.types';
 import { User } from './user.decorator';
 import { UserEntity } from './user.entity';
 import { AuthGuard } from 'src/guards/auth.guard';
