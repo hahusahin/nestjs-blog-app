@@ -1,11 +1,13 @@
 import { Request } from 'express';
 import { UserEntity } from './user.entity';
 
+export type IUser = Omit<
+  UserEntity,
+  'hashPasswordBeforeInsert' | 'hashPasswordBeforeUpdate'
+>;
+
 export interface UserResponse {
-  user: Omit<
-    UserEntity,
-    'hashPasswordBeforeInsert' | 'hashPasswordBeforeUpdate'
-  > & { token: string };
+  user: IUser & { token: string };
 }
 
 export interface ExpressRequest extends Request {

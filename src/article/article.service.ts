@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import slugify from 'slugify';
-import { DataSource, DeleteResult, Like, Repository } from 'typeorm';
+import { DataSource, DeleteResult, Repository } from 'typeorm';
 
 import { ArticleEntity } from './article.entity';
 import { UserEntity } from 'src/user/user.entity';
