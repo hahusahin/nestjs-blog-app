@@ -7,7 +7,6 @@ import {
   Req,
   UseGuards,
   UsePipes,
-  ValidationPipe,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { LoginDto, RegisterDto, UpdateDto } from './user.dto';
@@ -15,13 +14,14 @@ import { ExpressRequest, UserResponse } from './user.types';
 import { User } from './user.decorator';
 import { UserEntity } from './user.entity';
 import { AuthGuard } from 'src/guards/auth.guard';
+import { BackendValidationPipe } from 'src/pipes/backendValidation.pipe';
 
 @Controller()
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post('users/register')
-  @UsePipes(new ValidationPipe())
+  @UsePipes(new BackendValidationPipe())
   async register(
     @Body('user') registerDto: RegisterDto,
   ): Promise<UserResponse> {
@@ -29,7 +29,7 @@ export class UserController {
   }
 
   @Post('users/login')
-  @UsePipes(new ValidationPipe())
+  @UsePipes(new BackendValidationPipe())
   async login(@Body('user') loginDto: LoginDto): Promise<UserResponse> {
     return await this.userService.login(loginDto);
   }

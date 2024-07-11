@@ -22,7 +22,7 @@ export class UserService {
 
     if (existingUser) {
       throw new HttpException(
-        'User Already Exists',
+        { errors: { email: 'User Already Exists' } },
         HttpStatus.UNPROCESSABLE_ENTITY,
       );
     }
