@@ -15,10 +15,8 @@ export class AuthMiddleware implements NestMiddleware {
 
   async use(req: ExpressRequest, _: Response, next: NextFunction) {
     if (!req.headers.authorization) {
-      throw new HttpException(
-        'Missing Authorization Credentials',
-        HttpStatus.UNAUTHORIZED,
-      );
+      req.user = null;
+      return next();
     }
 
     try {

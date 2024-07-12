@@ -24,16 +24,6 @@ import { ProfileModule } from './profile/profile.module';
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(AuthMiddleware)
-      .exclude(
-        { path: 'users/(.*)', method: RequestMethod.ALL },
-        { path: 'tags', method: RequestMethod.ALL },
-        { path: 'articles', method: RequestMethod.GET },
-        { path: 'articles/:slug', method: RequestMethod.GET },
-        { path: 'articles/:slug/comments', method: RequestMethod.GET },
-        { path: 'profiles/:username', method: RequestMethod.GET },
-      )
-      .forRoutes('*');
+    consumer.apply(AuthMiddleware).forRoutes('*');
   }
 }

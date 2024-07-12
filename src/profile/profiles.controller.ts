@@ -6,7 +6,7 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { OptionalAuthGuard } from 'src/guards/auth.guard';
+import { AuthGuard } from 'src/guards/auth.guard';
 import { ProfileResponse } from './profile.types';
 import { User } from 'src/user/user.decorator';
 import { ProfileService } from './profile.service';
@@ -16,7 +16,6 @@ export class ProfilesController {
   constructor(private readonly profileService: ProfileService) {}
 
   @Get(':id')
-  @UseGuards(OptionalAuthGuard)
   async getProfile(
     @User('id') currentUserId: number,
     @Param('id') profileUserId: string,
@@ -28,6 +27,7 @@ export class ProfilesController {
   }
 
   @Post(':id/follow')
+  @UseGuards(AuthGuard)
   async followProfile(
     @User('id') currentUserId: number,
     @Param('id') profileUserId: string,
@@ -39,6 +39,7 @@ export class ProfilesController {
   }
 
   @Delete(':id/follow')
+  @UseGuards(AuthGuard)
   async unFollowProfile(
     @User('id') currentUserId: number,
     @Param('id') profileUserId: string,

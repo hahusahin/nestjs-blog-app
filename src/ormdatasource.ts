@@ -15,7 +15,11 @@ const dataSourceOptions: DataSourceOptions = {
   ssl: {
     rejectUnauthorized: true,
     ca: fs
-      .readFileSync(path.join(__dirname, '..', 'certs', 'ca.pem'))
+      .readFileSync(
+        process.env.NODE_ENV === 'dev'
+          ? path.join(__dirname, '..', 'certs', 'ca.pem')
+          : path.join(__dirname, '..', 'ca.pem'),
+      )
       .toString(),
   },
   entities: [__dirname + '/**/*.entity{.ts,.js}'],

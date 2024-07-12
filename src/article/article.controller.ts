@@ -15,7 +15,7 @@ import { User } from 'src/user/user.decorator';
 import { UserEntity } from 'src/user/user.entity';
 import { CreateArticleDto } from './article.dto';
 import { ArticleResponse, IArticlesResponse } from './article.types';
-import { OptionalAuthGuard } from 'src/guards/auth.guard';
+import { AuthGuard } from 'src/guards/auth.guard';
 import { BackendValidationPipe } from 'src/pipes/backendValidation.pipe';
 
 @Controller('articles')
@@ -23,7 +23,6 @@ export class ArticlesController {
   constructor(private readonly articleService: ArticleService) {}
 
   @Get()
-  @UseGuards(OptionalAuthGuard)
   async findAllArticles(
     @User('id') currentUserId: number,
     @Query() query: any,
@@ -32,6 +31,7 @@ export class ArticlesController {
   }
 
   @Get('feed')
+  @UseGuards(AuthGuard)
   async getFeed(
     @User('id') currentUserId: number,
     @Query() query: any,
@@ -40,6 +40,7 @@ export class ArticlesController {
   }
 
   @Post()
+  @UseGuards(AuthGuard)
   @UsePipes(new BackendValidationPipe())
   async createArticle(
     @User() user: UserEntity,
@@ -56,6 +57,7 @@ export class ArticlesController {
   }
 
   @Delete(':slug')
+  @UseGuards(AuthGuard)
   async deleteArticle(
     @Param('slug') slug: string,
     @User('id') currentUserId: number,
@@ -64,6 +66,7 @@ export class ArticlesController {
   }
 
   @Put(':slug')
+  @UseGuards(AuthGuard)
   @UsePipes(new BackendValidationPipe())
   async updateArticle(
     @Param('slug') slug: string,
@@ -79,6 +82,7 @@ export class ArticlesController {
   }
 
   @Post(':slug/favorite')
+  @UseGuards(AuthGuard)
   async addArticleToFavorites(
     @Param('slug') slug: string,
     @User('id') currentUserId: number,
@@ -91,6 +95,7 @@ export class ArticlesController {
   }
 
   @Delete(':slug/favorite')
+  @UseGuards(AuthGuard)
   async removeArticleFromFavorites(
     @Param('slug') slug: string,
     @User('id') currentUserId: number,
